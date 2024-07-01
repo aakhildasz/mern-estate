@@ -18,6 +18,7 @@ import {
   signoutUserSuccess,
   signoutUserStart,
 } from "../redux/user/userSlice";
+import { Link } from "react-router-dom";
 
 export default function Profile() {
   const fileRef = useRef(null);
@@ -183,10 +184,17 @@ export default function Profile() {
         />
         <button
           disabled={loading}
-          className="bg-slate-700 text-white rounded-lg p-3 uppercase hover:opacity-95 disabled:opacity-80"
+          className="bg-slate-700 text-white rounded-lg p-3 uppercase hover:opacity-95 disabled:opacity-80 transition duration-500 ease-in-out"
         >
           {loading ? "Loading..." : "Update"}
         </button>
+        <Link
+          to={"/create-listing"}
+          disabled={loading}
+          className="bg-green-700 text-white rounded-lg p-3 uppercase hover:opacity-95 disabled:opacity-80 transition duration-500 ease-in-out text-center"
+        >
+          {loading ? "Loading..." : "Create Listing"}
+        </Link>
       </form>
       <div className="flex justify-between mt-5">
         <span
