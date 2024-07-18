@@ -53,8 +53,11 @@ export default function CreateListing() {
           setImageUploadError("Image upload failed (2mb/image)");
           setUploading(false);
         });
+    } else if (files.length === 0) {
+      setImageUploadError("At least one image is required to proceed.");
+      setUploading(false);
     } else {
-      setImageUploadError("Upload limit is 6 images/listing!");
+      setImageUploadError("The upload limit per listing is 6 images.");
       setUploading(false);
     }
   };
@@ -298,7 +301,7 @@ export default function CreateListing() {
               disabled={uploading}
               onClick={handleImageSubmit}
               className="p-3 bg-green-700 text-white rounded hover:shadow-lg disabled:opacity-80"
-              style={{ cursor: uploading ? "progress" : "pointer" }}
+              style={{ cursor: uploading ? "wait" : "pointer" }}
             >
               {uploading ? "Uploading..." : "Upload"}
             </button>
@@ -311,7 +314,7 @@ export default function CreateListing() {
               formData.imageUrls.map((url, index) => (
                 <div
                   key={url}
-                  className="flex gap-4 justify-between mx-7 transition duration-500 ease-in-out"
+                  className="flex gap-4 justify-between mx-7 transition duration-500 ease-in"
                 >
                   <img
                     src={url}
