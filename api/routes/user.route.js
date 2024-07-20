@@ -13,6 +13,7 @@ userRouter.get("/test", test);
 userRouter.post("/update/:id", verifyToken, updateUser);
 userRouter.delete("/delete/:id", verifyToken, deleteUser);
 
-userRouter.get("/listing/:id", verifyToken, getUserListings);
+userRouter.get("/listings/:id", verifyToken, getUserListings);
+
 
 export default userRouter;
