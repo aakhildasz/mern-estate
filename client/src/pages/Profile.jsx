@@ -286,13 +286,16 @@ export default function Profile() {
                 <p>{listing.name}</p>
               </Link>
               <div className="flex text-xs items-center gap-2">
-                <button className="text-slate-700 uppercase">
-                  <Tooltip title="Edit">
-                    <IconButton>
-                      <EditIcon className="text-slate-700" />
-                    </IconButton>
-                  </Tooltip>
-                </button>
+                <Link to={`/update-listing/${listing._id}`}>
+                  <button className="text-slate-700 uppercase">
+                    <Tooltip title="Edit">
+                      <IconButton>
+                        <EditIcon className="text-slate-700" />
+                      </IconButton>
+                    </Tooltip>
+                  </button>
+                </Link>
+
                 <button
                   onClick={() => handleDeleteListing(listing._id)}
                   className="text-red-700 uppercase"
