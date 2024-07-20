@@ -13,6 +13,8 @@ export default function CreateListing() {
   const { currentUser } = useSelector((state) => state.user);
   const navigate = useNavigate([]);
 
+  const [uploadProgress, setUploadProgress] = useState(0);
+
   const [files, setFiles] = useState([]);
   const [formData, setFormData] = useState({
     imageUrls: [],
@@ -80,6 +82,7 @@ export default function CreateListing() {
         (snapshot) => {
           const progress =
             (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+          setUploadProgress(progress);
           console.log(`Upload is ${Math.round(progress)}% done`);
           // console.log(`Upload is ${progress} done.`);
         },
@@ -351,7 +354,9 @@ export default function CreateListing() {
               className="p-3 bg-green-700 text-white rounded hover:shadow-lg disabled:opacity-80"
               style={{ cursor: uploading ? "wait" : "pointer" }}
             >
-              {uploading ? "Uploading..." : "Upload"}
+              {uploading
+                ? `Uploading...${Math.round(uploadProgress)}%`
+                : "Upload"}
             </button>
           </div>
           <p className="text-red-700 text-sm text-center">
