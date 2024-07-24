@@ -9,6 +9,10 @@ import {
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
+import DeleteIcon from "@mui/icons-material/Delete";
+import Tooltip from "@mui/material/Tooltip";
+import IconButton from "@mui/material/IconButton";
+
 export default function CreateListing() {
   const { currentUser } = useSelector((state) => state.user);
   const navigate = useNavigate([]);
@@ -379,7 +383,11 @@ export default function CreateListing() {
                     onClick={() => handleRemoveImage(index)}
                     className="text-red-700 hover:opacity-75"
                   >
-                    Delete
+                    <Tooltip title="Delete">
+                      <IconButton>
+                        <DeleteIcon className="text-red-700" />
+                      </IconButton>
+                    </Tooltip>
                   </button>
                 </div>
               ))}

@@ -13,6 +13,15 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import Tooltip from "@mui/material/Tooltip";
 import IconButton from "@mui/material/IconButton";
 
+// confirm dialog using material ui
+import Button from "@mui/material/Button";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
+// confirm dialog using material ui
+
 export default function UpdateListing() {
   const { currentUser } = useSelector((state) => state.user);
   const navigate = useNavigate([]);
@@ -415,6 +424,7 @@ export default function UpdateListing() {
           >
             {loading ? "Updating..." : "Update Listing"}
           </button>
+
           {error && <p className="text-red-700 text-sm text-center">{error}</p>}
         </div>
         {/* end of 2nd div */}

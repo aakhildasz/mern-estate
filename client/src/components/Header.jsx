@@ -1,6 +1,8 @@
 import { FaSearch } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
+import Tooltip from "@mui/material/Tooltip";
+import IconButton from "@mui/material/IconButton";
 
 export default function Header() {
   const { currentUser } = useSelector((state) => state.user);
@@ -28,22 +30,28 @@ export default function Header() {
               Home
             </li>
           </Link>
-          <Link to="/about">
-            <li className="hidden sm:inline text-slate-700 hover: cursor-pointer">
-              About
-            </li>
-          </Link>
-          <Link to="/profile">
-            {currentUser ? (
-              <img
-                className="rounded-full h-7 w-7 object-cover"
-                src={currentUser.avatar}
-                alt="profile-picture"
-              />
-            ) : (
-              <li className="text-slate-700 hover: cursor-pointer">Sign In</li>
-            )}
-          </Link>
+          <Tooltip title="About">
+            <Link to="/about">
+              <li className="hidden sm:inline text-slate-700 hover: cursor-pointer">
+                About
+              </li>
+            </Link>
+          </Tooltip>
+          <Tooltip title="Profile">
+            <Link to="/profile">
+              {currentUser ? (
+                <img
+                  className="rounded-full h-7 w-7 object-cover"
+                  src={currentUser.avatar}
+                  alt="profile-picture"
+                />
+              ) : (
+                <li className="text-slate-700 hover: cursor-pointer">
+                  Sign In
+                </li>
+              )}
+            </Link>
+          </Tooltip>
         </ul>
       </div>
     </header>
