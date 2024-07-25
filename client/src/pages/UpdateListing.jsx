@@ -13,6 +13,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import Tooltip from "@mui/material/Tooltip";
 import IconButton from "@mui/material/IconButton";
 
+
 // confirm dialog using material ui
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
@@ -334,7 +335,9 @@ export default function UpdateListing() {
               />
               <div className="flex flex-col items-center">
                 <p>Regular Price</p>
-                <span className="text-xs">( $ / Month )</span>
+                {formData.type === "rent" && (
+                  <span className="text-xs">( $ / Month )</span>
+                )}
               </div>
             </div>
             {formData.offer && (
@@ -351,7 +354,9 @@ export default function UpdateListing() {
                 />
                 <div className="flex flex-col items-center">
                   <p>Discounted Price</p>
-                  <span className="text-xs">( $ / Month )</span>
+                  {formData.type === "rent" && (
+                    <span className="text-xs">( $ / Month )</span>
+                  )}
                 </div>
               </div>
             )}
