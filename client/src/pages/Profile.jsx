@@ -24,9 +24,10 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import Tooltip from "@mui/material/Tooltip";
 import IconButton from "@mui/material/IconButton";
 import LogoutIcon from "@mui/icons-material/Logout";
-
 import Backdrop from "@mui/material/Backdrop";
 import CircularProgress from "@mui/material/CircularProgress";
+import Switch from "@mui/material/Switch";
+import FormControlLabel from '@mui/material/FormControlLabel';
 
 export default function Profile() {
   const fileRef = useRef(null);
@@ -40,17 +41,14 @@ export default function Profile() {
 
   const [showListingsError, setShowListingsError] = useState(false);
   const [userListings, setUserListings] = useState([]);
-  // firebase storage
-  // allow read;
-  // allow write: if
-  // request.resource.size < 2 * 1024 * 1024 &&
-  // request.resource.contentType.matches('image/.*')
+  const [showListings, setShowListings] = useState(false);
 
   useEffect(() => {
     if (file) {
       handleFileUpload(file);
     }
   }, [file]);
+
   const handleFileUpload = (file) => {
     const storage = getStorage(app);
     const fileName = new Date().getTime() + file.name;
@@ -176,6 +174,16 @@ export default function Profile() {
     }
   };
 
+  const handleToggleChange = async (event) => {
+    const checked = event.target.checked;
+    setShowListings(checked);
+    if (checked) {
+      await handleShowListings();
+    } else {
+      setUserListings([]);
+    }
+  };
+
   return (
     <div className="p-3 max-w-lg mx-auto">
       <Backdrop
@@ -272,54 +280,50 @@ export default function Profile() {
       <p className="text-green-700 mt-5">
         {updateSuccess ? "User is updated successfully!" : ""}
       </p>
-      <button onClick={handleShowListings} className="text-green-700 w-full">
-        Show Listings
-      </button>
+      <FormControlLabel
+        control={
+          <Switch checked={showListings} onChange={handleToggleChange} />
+        }
+        label="Show Listings"
+      />
       <p className="text-red-700">
         {showListingsError ? "Error showing listings" : ""}
       </p>
-
-      {userListings && userListings.length > 0 && (
-        <div className="flex flex-col gap-4 border mt-10 border-slate-300 p-3 rounded-lg">
-          <h1 className="text-center font-semibold rounded-lg p-3 text-2xl">
+      {showListings && userListings.length > 0 && (
+        <div className="flex flex-col gap-4 border border-slate-300 p-4 rounded-lg mt-10 bg-white shadow-md">
+          <h1 className="text-center text-2xl font-semibold mt-4 mb-4">
             Your Listings
           </h1>
           {userListings.map((listing) => (
             <div
               key={listing._id}
-              className="flex border rounded-lg p-3 justify-between items-center gap-4"
+              className="flex border border-slate-200 bg-gray-50 rounded-lg p-4 gap-4 items-center hover:shadow-lg transition-shadow duration-300 ease-in-out"
             >
-              <Link to={`/listing/${listing._id}`}>
+              <Link to={`/listing/${listing._id}`} className="flex-shrink-0">
                 <img
-                  className="h-16 w-16 object-contain block"
+                  className="h-16 w-16 object-cover rounded-md"
                   src={listing.imageUrls[0]}
                   alt="listing cover"
                 />
               </Link>
               <Link
-                className="text-slate-700 font-semibold hover:underline truncate"
+                className="flex-1 text-slate-700 font-semibold hover:underline truncate"
                 to={`/listing/${listing._id}`}
               >
                 <p>{listing.name}</p>
               </Link>
-              <div className="flex text-xs items-center gap-2">
+              <div className="flex gap-2">
                 <Link to={`/update-listing/${listing._id}`}>
-                  <button className="text-slate-700 uppercase">
-                    <Tooltip title="Edit">
-                      <IconButton>
-                        <EditIcon className="text-slate-700" />
-                      </IconButton>
-                    </Tooltip>
-                  </button>
+                  <Tooltip title="Edit">
+                    <IconButton className="text-slate-700 hover:text-blue-600">
+                      <EditIcon />
+                    </IconButton>
+                  </Tooltip>
                 </Link>
-
-                <button
-                  onClick={() => handleDeleteListing(listing._id)}
-                  className="text-red-700 uppercase"
-                >
+                <button onClick={() => handleDeleteListing(listing._id)}>
                   <Tooltip title="Delete">
-                    <IconButton>
-                      <DeleteIcon className="text-red-700" />
+                    <IconButton className="text-slate-700 hover:text-red-600">
+                      <DeleteIcon />
                     </IconButton>
                   </Tooltip>
                 </button>
