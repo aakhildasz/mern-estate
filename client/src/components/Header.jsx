@@ -6,6 +6,7 @@ import IconButton from "@mui/material/IconButton";
 
 export default function Header() {
   const { currentUser } = useSelector((state) => state.user);
+  const tooltipTitle = currentUser ? "Profile" : "Sign In";
   return (
     <header className="bg-slate-200 shadow-md">
       <div className="flex justify-between items-center max-w-6xl mx-auto p-3">
@@ -40,7 +41,7 @@ export default function Header() {
               </li>
             </Link>
           </Tooltip>
-          <Tooltip title="Profile">
+          <Tooltip title={tooltipTitle}>
             <Link to="/profile">
               {currentUser ? (
                 <img

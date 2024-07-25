@@ -8,6 +8,9 @@ import {
 } from "../redux/user/userSlice";
 import OAuth from "../components/OAuth";
 
+import Backdrop from "@mui/material/Backdrop";
+import CircularProgress from "@mui/material/CircularProgress";
+
 export default function SignIn() {
   const [formData, setFormData] = useState({});
 
@@ -63,6 +66,12 @@ export default function SignIn() {
 
   return (
     <div className="p-3 max-w-lg mx-auto">
+      <Backdrop
+        sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        open={loading}
+      >
+        <CircularProgress color="inherit" />
+      </Backdrop>
       <h1 className="text-3xl text-center font-semibold my-7">Sign In</h1>
       <form onSubmit={handleSubmit} className="flex flex-col gap-4">
         {/* <input
